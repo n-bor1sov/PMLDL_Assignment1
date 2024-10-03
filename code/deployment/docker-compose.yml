@@ -4,9 +4,9 @@ services:
       context: ./api
       dockerfile: Dockerfile
     ports:
-      - "3010:3010"  # Map API service on 8080 outside
+      - "3010:3010"
     expose:
-      - "3010"       # Expose the port to other services inside the Docker network
+      - "3010"
     networks:
       - app-network
 
@@ -15,11 +15,11 @@ services:
       context: ./app
       dockerfile: Dockerfile
     ports:
-      - "8501:8501"  # Map Streamlit service on 8501 outside
+      - "8501:8501"
     expose:
-      - "8501"       # Expose the port to other services inside the Docker network
+      - "8501"
     depends_on:
-      - api          # Ensure Streamlit container starts after the API
+      - api
     networks:
       - app-network
 

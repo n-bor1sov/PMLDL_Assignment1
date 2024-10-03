@@ -29,8 +29,6 @@ class BinaryClassifier(nn.Module):
         x = self.sequential(x)
         return x
 
-
-# Define a dictionary to store video duplicates (in a real-world scenario, this would be a database)
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 tokenizer = AutoTokenizer.from_pretrained("cointegrated/LaBSE-en-ru")
@@ -48,15 +46,13 @@ def tokenize_and_embed(text):
     # Tokenize the text
     inputs = tokenizer(text, padding=True, truncation=True, max_length=512, return_tensors='pt')
     
-    # Move the input tensors to the GPU
     inputs = {key: val.to(device) for key, val in inputs.items()}
     
     # Get the embeddings
     with torch.no_grad():
         model_output = model(**inputs)
-    embeddings = model_output.pooler_output  # Use the [CLS] token as the embedding
+    embeddings = model_output.pooler_output
     
-    # Ensure the embeddings are returned as a list of arrays
     return embeddings
 
 @app.route('/sentiment-analisys', methods=['POST'])

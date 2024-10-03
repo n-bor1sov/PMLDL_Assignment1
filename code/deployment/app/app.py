@@ -24,7 +24,6 @@ if st.button("Predict"):
         # Send the POST request
         response = requests.post(url, json=payload)
         
-        # Parse the sentiment from the response
         if response.status_code == 200:
             response_data = response.json()
             sentiment = response_data.get('sentiment', 'Unknown')
